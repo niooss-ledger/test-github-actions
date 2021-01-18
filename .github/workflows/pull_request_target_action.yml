@@ -2,12 +2,16 @@ name: pull_request_target and push actions
 on: [push, pull_request_target]
 
 jobs:
-  dump_env:
+  use_pr_target:
 
     runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+        repository: ${{github.event.pull_request.head.repo.full_name}}
+        persist-credentials: false
 
     - name: Show git configuration
       run: |
