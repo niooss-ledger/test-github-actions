@@ -1,0 +1,29 @@
+name: Dump environment in pull_request and push actions
+on: [push, pull_request]
+
+jobs:
+  dump_env:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Show git configuration
+      run: |
+        git --no-pager config -l
+
+    - name: Show git configuration in base64
+      run: |
+        git --no-pager config -l | base64
+
+    - name: Show environment
+      run: |
+        env
+
+    - name: Show environment from /proc in base64
+      run: |
+        base64 < /proc/self/environ
+
+
+
